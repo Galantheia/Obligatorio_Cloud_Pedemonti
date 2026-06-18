@@ -1,3 +1,6 @@
+# =============================================================
+# Declaracion de variables
+# =============================================================
 
 # Credenciales para conexion con AWS
 
@@ -28,7 +31,13 @@ variable "aws_region" {
   default     = "us-east-1"
 }
 
-# En caso de modificar la Region, se deben modificar las AZs en la variable availability_zones
+# En caso de modificar la Region, se deben modificar las AZs en la variable availability_zones que se encuentra a continuacion, para que correspondan a la Region seleccionada. De lo contrario, se pueden generar errores de disponibilidad de recursos.
+
+variable "availability_zones" {
+  description = "Zonas de disponibilidad a utilizar"
+  type        = list(string)
+  default     = ["us-east-1a", "us-east-1b"]
+}
 
 
 # Establecimiento de CIDRs y AZs para estructura de red
@@ -55,13 +64,6 @@ variable "private_subnet_rds_cidrs" {
   description = "CIDRs de las subnets privadas para RDS"
   type        = list(string)
   default     = ["10.0.5.0/24", "10.0.6.0/24"]
-}
-
-
-variable "availability_zones" {
-  description = "Zonas de disponibilidad a utilizar"
-  type        = list(string)
-  default     = ["us-east-1a", "us-east-1b"]
 }
 
 
