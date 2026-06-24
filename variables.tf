@@ -31,7 +31,8 @@ variable "aws_region" {
   default     = "us-east-1"
 }
 
-# En caso de modificar la Region, se deben modificar las AZs en la variable availability_zones que se encuentra a continuacion, para que correspondan a la Region seleccionada. De lo contrario, se pueden generar errores de disponibilidad de recursos.
+/* En caso de modificar la Region, se deben modificar las AZs en la variable availability_zones que se encuentra a continuacion,
+para que correspondan a la Region seleccionada. De lo contrario, se pueden generar errores de disponibilidad de recursos. */
 
 variable "availability_zones" {
   description = "Zonas de disponibilidad a utilizar"
