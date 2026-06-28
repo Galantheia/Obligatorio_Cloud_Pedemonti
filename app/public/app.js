@@ -62,10 +62,8 @@ async function loadServerInfo() {
     </div>
 
     <div class="instance-meta">
-      <span>Color: <code>${info.color}</code></span>
       <span>Hostname: <code>${info.hostname || 'local'}</code></span>
       <span>Zona: <code>${info.availabilityZone || 'local'}</code></span>
-      <span>Tipo: <code>${info.instanceType || 'local'}</code></span>
     </div>
   `;
 }
