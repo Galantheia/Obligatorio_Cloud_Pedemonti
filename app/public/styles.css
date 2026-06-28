@@ -12,10 +12,7 @@
 body {
   margin: 0;
   min-height: 100vh;
-  background:
-    radial-gradient(circle at top left, rgba(59, 130, 246, 0.22), transparent 32rem),
-    radial-gradient(circle at top right, rgba(20, 184, 166, 0.18), transparent 30rem),
-    #070b16;
+  background:#00091b;
 }
 
 .page-shell {
@@ -151,13 +148,6 @@ code {
 .controls-card h2 {
   margin: 0;
   font-size: 26px;
-}
-
-.muted {
-  color: #94a3b8;
-  margin: 8px 0 0;
-  max-width: 720px;
-  line-height: 1.55;
 }
 
 button {
