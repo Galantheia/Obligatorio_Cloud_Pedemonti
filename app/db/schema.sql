@@ -1,27 +1,22 @@
--- Ejecutar en Neon SQL Editor.
--- Esto borra y recrea la tabla products con datos de ejemplo.
-
-DROP TABLE IF EXISTS products;
-
-CREATE TABLE products (
-  id SERIAL PRIMARY KEY,
+CREATE TABLE IF NOT EXISTS products (
+  id INT NOT NULL AUTO_INCREMENT,
   product_group VARCHAR(50) NOT NULL,
   name VARCHAR(255) NOT NULL,
-  price NUMERIC(10,2) NOT NULL DEFAULT 0,
+  price DECIMAL(10,2) NOT NULL DEFAULT 0,
   image_url TEXT,
   description TEXT,
   display_order INT NOT NULL DEFAULT 0,
   active BOOLEAN NOT NULL DEFAULT TRUE,
-  created_at TIMESTAMPTZ DEFAULT NOW()
-);
-
-CREATE INDEX idx_products_group_active_order
-ON products (product_group, active, display_order);
-
+  created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+ 
+  PRIMARY KEY (id),
+  INDEX idx_products_group_active_order (product_group, active, display_order)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+ 
 INSERT INTO products
 (product_group, name, price, image_url, description, display_order, active)
 VALUES
-
+ 
 -- =========================
 -- GRUPO: gadgets
 -- =========================
@@ -79,7 +74,7 @@ VALUES
   6,
   TRUE
 ),
-
+ 
 -- =========================
 -- GRUPO: home_office
 -- =========================
@@ -137,7 +132,7 @@ VALUES
   6,
   TRUE
 ),
-
+ 
 -- =========================
 -- GRUPO: smart_home
 -- =========================
