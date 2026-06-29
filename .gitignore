@@ -1,0 +1,48 @@
+# =============================================================
+# Terraform
+# =============================================================
+ 
+# Archivo con credenciales y valores reales, nunca se sube
+terraform.tfvars
+ 
+# Directorios y archivos generados por Terraform
+**/.terraform/*
+.terraform.lock.hcl
+ 
+# Archivos de estado, pueden contener datos sensibles
+*.tfstate
+*.tfstate.*
+*.tfstate.backup
+ 
+# Archivos de plan
+*.tfplan
+ 
+# Logs de crash
+crash.log
+crash.*.log
+ 
+# Variables que puedan contener secretos
+*.tfvars
+*.tfvars.json
+!terraform.tfvars.example
+ 
+ 
+# =============================================================
+# Node.js
+# =============================================================
+ 
+node_modules/
+.env
+.env.local
+npm-debug.log*
+pnpm-debug.log*
+ 
+ 
+# =============================================================
+# Sistema operativo / editor
+# =============================================================
+ 
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
