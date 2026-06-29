@@ -25,6 +25,7 @@ resource "aws_lb_target_group" "app" {
   port     = 80
   protocol = "HTTP"
   vpc_id   = aws_vpc.main.id
+  target_type = "instance"
 
   health_check {
     path                = "/"

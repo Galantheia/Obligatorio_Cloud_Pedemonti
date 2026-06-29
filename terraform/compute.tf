@@ -11,7 +11,7 @@ data "aws_ami" "amazon_linux" {
 
   filter {
     name   = "name"
-    values = ["amzn2-ami-hvm-*-x86_64-gp2"]
+    values = ["al2023-ami-*-x86_64"]
   }
 }
 
@@ -25,23 +25,26 @@ resource "aws_launch_template" "app" {
   image_id      = data.aws_ami.amazon_linux.id
   instance_type = var.instance_type
 
+  iam_instance_profile {
+    name = "LabInstanceProfile"
+  }
+
   vpc_security_group_ids = [aws_security_group.ec2.id]
 
-  user_data = base64encode(<<-EOF
-    #!/bin/bash
-    yum update -y
-    yum install -y httpd
-    systemctl start httpd
-    systemctl enable httpd
-  EOF
-  )
-
+  user_data = base64encode(templatefile("${path.module}/user_data.sh", {
+  db_host     = aws_db_instance.main.address
+  db_user     = var.db_username
+  db_password = var.db_password
+  db_name     = "ecommerce"
+  }))
+  
   tags = {
     Name = "lt-app"
   }
 }
 
-# El user_data se debe modificar en base a la aplicacion que se desee desplegar en las instancias EC2.
+/* El user_data esta diseñado para desplegar una app desarrollada con Node.js.
+Instala Node.js, clona el repositorio de la aplicacion, genera el .env y arranca la app con pm2. */
 
 
 # Auto Scaling Group
