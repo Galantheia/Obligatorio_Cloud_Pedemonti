@@ -36,6 +36,8 @@ resource "aws_launch_template" "app" {
   db_user     = var.db_username
   db_password = var.db_password
   db_name     = "ecommerce"
+  session_secret = var.session_secret
+  backup_bucket = aws_s3_bucket.backups.bucket
   }))
   
   tags = {

@@ -79,6 +79,15 @@ resource "aws_security_group" "rds" {
 
 # Solo permite trafico proveniente de las instancias EC2.
 
+
+
+/* Para evitar problemas de conectividad, se crean reglas de seguridad adicionales para permitir el 
+tráfico entre los Security Groups. Esto es resultado de una falla en al implementacion de las reglas 
+dentro de los bloques establecidos previamente. El resultado es que las instancias EC2 pueden 
+comunicarse con el ALB y viceversa de igual forma. */
+
+
+
 # Regla: ALB puede enviar trafico HTTP hacia EC2
 
 resource "aws_security_group_rule" "alb_to_ec2" {

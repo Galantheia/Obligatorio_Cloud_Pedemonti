@@ -1,7 +1,7 @@
-{
-  "name": "alb-mysql-product-demo",
+﻿{
+  "name": "app-demo-mysql",
   "version": "1.0.0",
-  "description": "Demo para AWS ALB: muestra productos desde MySQL (RDS) y un identificador visual único por instancia EC2.",
+  "description": "Demo para AWS ALB: muestra productos desde MySQL y un identificador visual unico por instancia EC2.",
   "main": "server.js",
   "type": "module",
   "scripts": {
@@ -12,7 +12,7 @@
     "cookie-parser": "^1.4.7",
     "dotenv": "^16.4.7",
     "express": "^4.21.2",
-    "mysql2": "^3.11.5"
+    "mysql2": "^3.11.3"
   },
   "engines": {
     "node": ">=18"
