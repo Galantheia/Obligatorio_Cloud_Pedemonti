@@ -89,3 +89,9 @@ variable "db_password" {
   type        = string
   sensitive   = true
 }
+
+variable "session_secret" {
+  description = "Secreto para firmar la cookie de sesion del admin"
+  type        = string
+  sensitive   = true
+}

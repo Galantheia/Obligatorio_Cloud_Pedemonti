@@ -1,0 +1,47 @@
+# =============================================================
+# Terraform
+# =============================================================
+
+# Directorios y archivos generados por Terraform
+**/.terraform/*
+
+# Archivos de estado
+*.tfstate
+*.tfstate.*
+*.tfstate.backup
+
+# Archivos de plan
+*.tfplan
+
+# Logs de crash
+crash.log
+crash.*.log
+
+# Variables que puedan contener secretos
+*.tfvars
+*.tfvars.json
+!terraform.tfvars.example
+
+# Providers auto
+.terraform.lock.hcl
+
+# =============================================================
+# Node.js
+# =============================================================
+
+node_modules/
+.env
+.env.*
+!.env.example
+npm-debug.log*
+pnpm-debug.log*
+
+
+# =============================================================
+# Sistema operativo / editor
+# =============================================================
+
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/

@@ -25,14 +25,16 @@ resource "aws_lb_target_group" "app" {
   port     = 80
   protocol = "HTTP"
   vpc_id   = aws_vpc.main.id
+  target_type = "instance"
 
   health_check {
-    path                = "/"
-    healthy_threshold   = 2
-    unhealthy_threshold = 2
-    interval            = 30
-    timeout             = 5
-  }
+  path                = "/health"
+  matcher             = "200-399"
+  healthy_threshold   = 2
+  unhealthy_threshold = 2
+  interval            = 30
+  timeout             = 5
+}
 
   tags = {
     Name = "tg-app"
@@ -56,7 +58,7 @@ resource "aws_lb_listener" "http" {
 # Redirecciona el trafico HTTP al Target Group que contiene las instancias EC2 del Auto Scaling Group.
 
 
-# Asociacion del Target Group con el Auto Scaling Group
+# Asociacion Target Group - Auto Scaling Group
 
 resource "aws_autoscaling_attachment" "app" {
   autoscaling_group_name = aws_autoscaling_group.app.name

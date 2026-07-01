@@ -1,0 +1,205 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin | Demo ALB + RDS</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/admin.css" />
+  </head>
+  <body>
+    <main class="admin-shell">
+      <section id="admin-loading" class="loading-screen" aria-live="polite">
+        <span class="loading-screen-spinner" aria-hidden="true"></span>
+        <p>Validando sesión admin...</p>
+      </section>
+
+      <header class="admin-topbar">
+        <a class="back-link" href="/">Volver al catálogo</a>
+        <button id="logout-button" class="ghost-button hidden" type="button">Cerrar sesión</button>
+      </header>
+
+      <section id="login-view" class="auth-card hidden">
+        <div class="auth-copy">
+          <p class="eyebrow">Acceso admin</p>
+          <h1>Panel de control del catálogo</h1>
+          <p>
+            Ingresá con el usuario administrador creado en RDS para consultar el estado general de productos, usuarios e instancia activa.
+          </p>
+        </div>
+
+        <form id="login-form" class="auth-form">
+          <label>
+            <span>Usuario</span>
+            <input id="username-input" name="username" type="text" autocomplete="username" required />
+          </label>
+
+          <label>
+            <span>Contraseña</span>
+            <input id="password-input" name="password" type="password" autocomplete="current-password" required />
+          </label>
+
+          <button id="login-button" type="submit">
+            <span id="login-spinner" class="button-spinner hidden" aria-hidden="true"></span>
+            <span id="login-button-label">Ingresar</span>
+          </button>
+          <p id="login-status" class="status-text" aria-live="polite">Esperando autenticación.</p>
+        </form>
+      </section>
+
+      <section id="dashboard-view" class="dashboard hidden">
+        <header class="dashboard-header">
+          <div>
+            <p class="eyebrow">Panel admin</p>
+            <h2 id="welcome-title">Administrador</h2>
+            <p id="welcome-copy" class="support-copy">Conectando...</p>
+          </div>
+
+          <div class="dashboard-actions">
+            <button id="overview-view-button" class="ghost-button" type="button">Resumen</button>
+            <button id="products-view-button" class="ghost-button" type="button">Ver todos los productos</button>
+            <button id="open-create-modal-button" type="button">+ Nuevo producto</button>
+          </div>
+        </header>
+
+        <section id="overview-section" class="admin-section">
+          <section class="stats-grid">
+            <article class="stat-card">
+              <span class="stat-label">Productos totales</span>
+              <strong id="total-products">0</strong>
+            </article>
+
+            <article class="stat-card">
+              <span class="stat-label">Productos activos</span>
+              <strong id="active-products">0</strong>
+            </article>
+
+            <article class="stat-card">
+              <span class="stat-label">Usuarios</span>
+              <strong id="total-users">0</strong>
+            </article>
+
+            <article class="stat-card">
+              <span class="stat-label">Admins activos</span>
+              <strong id="active-admins">0</strong>
+            </article>
+          </section>
+
+          <section class="dashboard-grid">
+            <article class="panel-card">
+              <div class="panel-heading">
+                <h3>Distribución por grupo</h3>
+              </div>
+              <div id="group-stats" class="list-stack"></div>
+            </article>
+
+            <article class="panel-card">
+              <div class="panel-heading">
+                <h3>Instancia que responde</h3>
+              </div>
+              <div id="server-stats" class="list-stack"></div>
+            </article>
+          </section>
+        </section>
+
+        <section id="products-section" class="admin-section hidden">
+          <article class="panel-card">
+            <div class="panel-heading">
+              <h3>Todos los productos</h3>
+            </div>
+
+            <div class="catalog-toolbar">
+              <label class="catalog-search-field">
+                <span>Buscar productos</span>
+                <input id="admin-products-search" type="search" placeholder="Nombre, descripción o categoría" />
+              </label>
+
+              <button id="catalog-create-button" type="button">+ Nuevo producto</button>
+            </div>
+
+            <p id="catalog-status" class="status-text" aria-live="polite">Cargando catálogo...</p>
+            <div id="products-admin-list" class="products-admin-list products-admin-list--horizontal"></div>
+          </article>
+        </section>
+      </section>
+
+      <section id="product-modal" class="modal-shell hidden" aria-hidden="true">
+        <div id="product-modal-backdrop" class="modal-backdrop"></div>
+        <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="product-modal-title">
+          <div class="modal-header">
+            <div>
+              <p class="eyebrow">Catálogo</p>
+              <h3 id="product-modal-title">Nuevo producto</h3>
+            </div>
+
+            <button id="close-product-modal-button" class="ghost-button" type="button">Cerrar</button>
+          </div>
+
+          <form id="product-form" class="product-form">
+            <datalist id="category-suggestions">
+              <option value="gadgets"></option>
+              <option value="home_office"></option>
+              <option value="smart_home"></option>
+            </datalist>
+
+            <label>
+              <span>Categoría</span>
+              <input id="product-group-input" name="productGroup" type="text" list="category-suggestions" placeholder="gadgets" required />
+            </label>
+
+            <label>
+              <span>Nombre</span>
+              <input id="product-name-input" name="name" type="text" required />
+            </label>
+
+            <label>
+              <span>Precio</span>
+              <input id="product-price-input" name="price" type="number" min="0" step="0.01" required />
+            </label>
+
+            <label>
+              <span>Imagen URL</span>
+              <input id="product-image-input" name="imageUrl" type="url" placeholder="https://..." />
+            </label>
+
+            <label>
+              <span>Orden de visualización</span>
+              <input id="product-order-input" name="displayOrder" type="number" min="0" step="1" value="0" required />
+            </label>
+
+            <label class="product-description-field">
+              <span>Descripción</span>
+              <textarea id="product-description-input" name="description" rows="4" required></textarea>
+            </label>
+
+            <label class="checkbox-field">
+              <input id="product-active-input" name="active" type="checkbox" checked />
+              <span>Producto activo</span>
+            </label>
+            
+            <div class="modal-actions">
+              <button id="product-submit-button" type="submit">
+                <span id="product-submit-spinner" class="button-spinner hidden" aria-hidden="true"></span>
+                <span id="product-submit-label">Guardar producto</span>
+              </button>
+              <button id="product-cancel-button" class="ghost-button hidden" type="button">
+                Cancelar edición
+              </button>
+            </div>
+
+            <p id="product-form-status" class="status-text" aria-live="polite">Completá los campos para publicar un producto nuevo.</p>
+          </form>
+        </div>
+      </section>
+
+      <section id="toast-region" class="toast-region" aria-live="polite" aria-atomic="true"></section>
+    </main>
+
+    <script src="/admin.js"></script>
+  </body>
+</html>
