@@ -7,8 +7,8 @@ dnf install -y nodejs git mariadb105 awscli
 
 # Clonado del repositorio
 cd /home/ec2-user
-git clone https://github.com/Galantheia/App_Web_Obli-ISCloud.git
-cd App_Web_Obli-ISCloud
+git clone https://github.com/Galantheia/Obligatorio_Cloud_Pedemonti
+cd Obligatorio_Cloud_Pedemonti/app
 
 # Generación del archivo .env con los valores reales de la infraestructura
 cat <<EOF > .env
